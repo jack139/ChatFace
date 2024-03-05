@@ -4,10 +4,10 @@
 
 ## TODO
 
-- [ ] 语音识别
-- [ ] LLM对话
-- [ ] 语音生成
-- [x] 语音驱动视频生成
+- [ ] 语音识别 - Paraformer
+- [ ] LLM对话 - QWen1.5
+- [ ] 语音生成 - MockingBird
+- [x] 语音驱动视频生成 - GeneFace++
 
 
 
