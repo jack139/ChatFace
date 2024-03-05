@@ -16,32 +16,32 @@ import uuid
 import traceback
 from datetime import datetime
 # common utils
-from utils.commons.hparams import hparams, set_hparams
-from utils.commons.tensor_utils import move_to_cuda, convert_to_np, convert_to_tensor
-from utils.commons.ckpt_utils import load_ckpt, get_last_checkpoint
+from video.utils.commons.hparams import hparams, set_hparams
+from video.utils.commons.tensor_utils import move_to_cuda, convert_to_np, convert_to_tensor
+from video.utils.commons.ckpt_utils import load_ckpt, get_last_checkpoint
 # 3DMM-related utils
-from deep_3drecon.deep_3drecon_models.bfm import ParametricFaceModel
-from data_util.face3d_helper import Face3DHelper
-from deep_3drecon.secc_renderer import SECC_Renderer
-from data_gen.eg3d.convert_to_eg3d_convention import get_eg3d_convention_camera_pose_intrinsic
-from data_gen.utils.mp_feature_extractors.face_landmarker import index_lm68_from_lm478, index_lm131_from_lm478
+from video.deep_3drecon.deep_3drecon_models.bfm import ParametricFaceModel
+from video.data_util.face3d_helper import Face3DHelper
+from video.deep_3drecon.secc_renderer import SECC_Renderer
+from video.data_gen.eg3d.convert_to_eg3d_convention import get_eg3d_convention_camera_pose_intrinsic
+from video.data_gen.utils.mp_feature_extractors.face_landmarker import index_lm68_from_lm478, index_lm131_from_lm478
 # Face Parsing 
-from data_gen.utils.mp_feature_extractors.mp_segmenter import MediapipeSegmenter
-from data_gen.utils.process_video.extract_segment_imgs import inpaint_torso_job, extract_background
+from video.data_gen.utils.mp_feature_extractors.mp_segmenter import MediapipeSegmenter
+from video.data_gen.utils.process_video.extract_segment_imgs import inpaint_torso_job, extract_background
 # other inference utils
 from inference.infer_utils import mirror_index, load_img_to_512_hwc_array, load_img_to_normalized_512_bchw_tensor
 from inference.infer_utils import smooth_camera_sequence, smooth_features_xd
-from utils.commons.pitch_utils import f0_to_coarse
+from video.utils.commons.pitch_utils import f0_to_coarse
 # Dataset Related
-from tasks.radnerfs.dataset_utils import RADNeRFDataset, get_boundary_mask, dilate_boundary_mask, get_lf_boundary_mask
+from video.tasks.radnerfs.dataset_utils import RADNeRFDataset, get_boundary_mask, dilate_boundary_mask, get_lf_boundary_mask
 # Method Related
-from modules.audio2motion.vae import VAEModel, PitchContourVAEModel
-from modules.postnet.lle import compute_LLE_projection, find_k_nearest_neighbors
-from modules.radnerfs.utils import get_audio_features, get_rays, get_bg_coords, convert_poses, nerf_matrix_to_ngp
-from modules.radnerfs.radnerf import RADNeRF
-from modules.radnerfs.radnerf_sr import RADNeRFwithSR
-from modules.radnerfs.radnerf_torso import RADNeRFTorso
-from modules.radnerfs.radnerf_torso_sr import RADNeRFTorsowithSR
+from video.modules.audio2motion.vae import VAEModel, PitchContourVAEModel
+from video.modules.postnet.lle import compute_LLE_projection, find_k_nearest_neighbors
+from video.modules.radnerfs.utils import get_audio_features, get_rays, get_bg_coords, convert_poses, nerf_matrix_to_ngp
+from video.modules.radnerfs.radnerf import RADNeRF
+from video.modules.radnerfs.radnerf_sr import RADNeRFwithSR
+from video.modules.radnerfs.radnerf_torso import RADNeRFTorso
+from video.modules.radnerfs.radnerf_torso_sr import RADNeRFTorsowithSR
 
 
 face3d_helper = None
@@ -153,7 +153,7 @@ class GeneFace2Infer:
     def load_postnet(self, postnet_dir):
         if postnet_dir == '':
             return None
-        from modules.postnet.models import PitchContourCNNPostNet
+        from video.modules.postnet.models import PitchContourCNNPostNet
         set_hparams(f"{os.path.dirname(postnet_dir) if os.path.isfile(postnet_dir) else postnet_dir}/config.yaml")
         self.postnet_hparams = copy.deepcopy(hparams)
         in_out_dim = 68*3
@@ -277,7 +277,7 @@ class GeneFace2Infer:
 
     @torch.no_grad()
     def get_hubert(self, wav16k_name):
-        from data_gen.utils.process_audio.extract_hubert import get_hubert_from_16k_wav
+        from video.data_gen.utils.process_audio.extract_hubert import get_hubert_from_16k_wav
         hubert = get_hubert_from_16k_wav(wav16k_name).detach().numpy()
         len_mel = hubert.shape[0]
         x_multiply = 8
@@ -290,7 +290,7 @@ class GeneFace2Infer:
         return hubert
 
     def get_f0(self, wav16k_name):
-        from data_gen.utils.process_audio.extract_mel_f0 import extract_mel_from_fname, extract_f0_from_wav_and_mel
+        from video.data_gen.utils.process_audio.extract_mel_f0 import extract_mel_from_fname, extract_f0_from_wav_and_mel
         wav, mel = extract_mel_from_fname(self.wav16k_name)
         f0, f0_coarse = extract_f0_from_wav_and_mel(wav, mel)
         f0 = f0.reshape([-1,1])

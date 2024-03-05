@@ -1,13 +1,13 @@
 # big files
-data_util/face_tracking/3DMM/01_MorphableModel.mat
-data_util/face_tracking/3DMM/3DMM_info.npy
+video/data_util/face_tracking/3DMM/01_MorphableModel.mat
+video/data_util/face_tracking/3DMM/3DMM_info.npy
 
-!/deep_3drecon/BFM/.gitkeep
-deep_3drecon/BFM/Exp_Pca.bin
-deep_3drecon/BFM/01_MorphableModel.mat
-deep_3drecon/BFM/BFM_model_front.mat
-deep_3drecon/network/FaceReconModel.pb
-deep_3drecon/checkpoints/*
+!/video/deep_3drecon/BFM/.gitkeep
+video/deep_3drecon/BFM/Exp_Pca.bin
+video/deep_3drecon/BFM/01_MorphableModel.mat
+video/deep_3drecon/BFM/BFM_model_front.mat
+video/deep_3drecon/network/FaceReconModel.pb
+video/deep_3drecon/checkpoints/*
 
 .vscode
 ### Project ignore
@@ -165,11 +165,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-data_util/deepspeech_features/deepspeech-0.9.2-models.pbmm
-deep_3drecon/mesh_renderer/bazel-bin
-deep_3drecon/mesh_renderer/bazel-mesh_renderer
-deep_3drecon/mesh_renderer/bazel-out
-deep_3drecon/mesh_renderer/bazel-testlogs
+video/data_util/deepspeech_features/deepspeech-0.9.2-models.pbmm
+video/deep_3drecon/mesh_renderer/bazel-bin
+video/deep_3drecon/mesh_renderer/bazel-mesh_renderer
+video/deep_3drecon/mesh_renderer/bazel-out
+video/deep_3drecon/mesh_renderer/bazel-testlogs
 
 .nfs*
 infer_outs/*
@@ -178,17 +178,17 @@ infer_outs/*
 venv_113/*
 *.pt
 experiments/trials
-flame_3drecon/*
+video/flame_3drecon/*
 
 temp/
 /kill.sh
 /datasets
-data_util/imagenet_classes.txt
+video/data_util/imagenet_classes.txt
 process_data_May.sh
 /env_prepare_reproduce.md
 /my_debug.py
 
-utils/metrics/shape_predictor_68_face_landmarks.dat
+video/utils/metrics/shape_predictor_68_face_landmarks.dat
 *.mp4
 _torchshow/
 *.png
@@ -204,9 +204,9 @@ ijcai_test_data/*
 infer_general3d_oneshot.py
 infer_general3d_person_specifc.py
 
-deep_3drecon/BFM/BFM_exp_idx.mat
-deep_3drecon/BFM/BFM_front_idx.mat
-deep_3drecon/BFM/facemodel_info.mat
-deep_3drecon/BFM/index_mp468_from_mesh35709.npy
-deep_3drecon/BFM/mediapipe_in_bfm53201.npy
-deep_3drecon/BFM/std_exp.txt
+video/deep_3drecon/BFM/BFM_exp_idx.mat
+video/deep_3drecon/BFM/BFM_front_idx.mat
+video/deep_3drecon/BFM/facemodel_info.mat
+video/deep_3drecon/BFM/index_mp468_from_mesh35709.npy
+video/deep_3drecon/BFM/mediapipe_in_bfm53201.npy
+video/deep_3drecon/BFM/std_exp.txt
