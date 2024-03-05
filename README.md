@@ -35,4 +35,7 @@ sudo pip3.9 install setproctitle
 ```bash
 # 生成 video
 CUDA_VISIBLE_DEVICES=0 python3.9 inference/genefacepp_infer.py --head_ckpt= --torso_ckpt=checkpoints/motion2video_nerf/News_torso --drv_aud=data/raw/val_wavs/MacronSpeech.wav --out_name=infer_outs/News_demo.mp4
+
+# UI界面
+CUDA_VISIBLE_DEVICES=0 python3.9 inference/app_genefacepp.py --head_ckpt= --torso_ckpt=checkpoints/motion2video_nerf/News_torso
 ```

@@ -556,7 +556,7 @@ class GeneFace2Infer:
 if __name__ == '__main__':
     import argparse, glob, tqdm
     parser = argparse.ArgumentParser()
-    parser.add_argument("--a2m_ckpt", default='checkpoints/audio2motion_vae')  # checkpoints/0727_audio2secc/audio2secc_withlm2d100_randomframe
+    parser.add_argument("--a2m_ckpt", default='checkpoints/audio2motion_vae')
     parser.add_argument("--head_ckpt", default='') 
     parser.add_argument("--postnet_ckpt", default='') 
     parser.add_argument("--torso_ckpt", default='')
