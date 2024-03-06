@@ -26,6 +26,9 @@ sudo mim install mmcv==2.1.0 # 使用mim来加速mmcv安装
 sudo pip3.9 install mediapipe
 sudo pip3.9 install pyloudnorm
 sudo pip3.9 install setproctitle
+
+# ASR
+sudo pip3.9 install funasr
 ```
 
 
