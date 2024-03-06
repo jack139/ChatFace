@@ -29,19 +29,8 @@ model = torch.compile(model) # requires PyTorch 2.0 (optional)
 print(f"Time elapsed: {(time.time() - start):.3f} sec.")
 
 
-with torch.no_grad():
-    print("Start inference mode.")
-    print('=' * 85)
-
-    while True:
-        raw_input_text = input("(!! to quit.) 请输入您的问题：")
-        raw_input_text = str(raw_input_text)
-        if raw_input_text.strip() == "!!":
-            print("Bye!")
-            break
-        if len(raw_input_text.strip()) == 0:
-            continue
-
+def infer(text):
+    with torch.no_grad():
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": raw_input_text}
@@ -66,5 +55,25 @@ with torch.no_grad():
 
         response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
+        print(f">>>>>>> Time elapsed: {(time.time() - start):.3f} sec.")
+
+        return response
+
+
+
+if __name__ == '__main__':
+
+    print("Start inference mode.")
+    print('=' * 85)
+
+    while True:
+        raw_input_text = input("请输入您的问题：")
+        raw_input_text = str(raw_input_text)
+        if len(raw_input_text.strip()) == 0:
+            break
+
+        response = infer(raw_input_text)
+
         print("Response: ", response)
-        print(f">>>>>>> Time elapsed: {(time.time() - start):.3f} sec.\n\n")
+
+    print("Bye!")
