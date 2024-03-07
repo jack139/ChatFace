@@ -1,5 +1,5 @@
 # 预训练模型来源：
-# https://huggingface.co/funasr/Paraformer-large
+# https://huggingface.co/funasr/paraformer-zh-streaming
 # https://github.com/alibaba-damo-academy/FunASR
 
 import os
@@ -8,7 +8,14 @@ from io import BytesIO
 from funasr import AutoModel
 from datetime import datetime
 
-
+'''
+Note: chunk_size is the configuration for streaming latency. 
+    [0,10,5] indicates that the real-time display granularity is 10*60=600ms, 
+    and the lookahead information is 5*60=300ms. Each inference input is 600ms 
+    (sample points are 16000*0.6=960), and the output is the corresponding text. 
+    For the last speech segment input, is_final=True needs to be set to force 
+    the output of the last word.
+'''
 chunk_size = [0, 10, 5] #[0, 10, 5] 600ms, [0, 8, 4] 480ms
 encoder_chunk_look_back = 4 #number of chunks to lookback for encoder self-attention
 decoder_chunk_look_back = 1 #number of encoder chunks to lookback for decoder cross-attention
