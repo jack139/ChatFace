@@ -50,6 +50,15 @@ sudo pip3.9 install transformers==4.37.2
 ## 测试
 
 ```bash
+# ASR 语音识别
+python3.9 asr/paraformer.py
+
+# Qwen2 对话
+python3.9 llm/qw2.py
+
+# TTS 生成语音
+python3.9 tts/xtts2.py
+
 # Geneface++ 生成 video
 CUDA_VISIBLE_DEVICES=0 python3.9 inference/genefacepp_infer.py --head_ckpt= --torso_ckpt=checkpoints/motion2video_nerf/News_torso --drv_aud=data/raw/val_wavs/MacronSpeech.wav --out_name=infer_outs/News_demo.mp4
 
@@ -58,4 +67,7 @@ CUDA_VISIBLE_DEVICES=0 python3.9 inference/app_genefacepp.py --head_ckpt= --tors
 
 # 命令行 pipeline
 python3.9 inference/pipeline.py
+
+# pipeline webapp demo
+python3.9 inference/app_pipeline.py
 ```
