@@ -29,7 +29,7 @@ model = torch.compile(model) # requires PyTorch 2.0 (optional)
 print(f"Time elapsed: {(time.time() - start):.3f} sec.")
 
 
-def infer(raw_input_text):
+def infer(raw_input_text, max_new_tokens=512):
     with torch.no_grad():
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
@@ -47,7 +47,7 @@ def infer(raw_input_text):
 
         generated_ids = model.generate(
             model_inputs.input_ids,
-            max_new_tokens=512
+            max_new_tokens=max_new_tokens
         )
         generated_ids = [
             output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)

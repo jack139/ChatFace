@@ -15,7 +15,7 @@ from inference import genefacepp_infer as GFPP
 
 def infer_from_text(text, video_path='infer_outs/pipeline_demo.mp4'):
     # text --> [LLM] --> text
-    response = LLM.infer(text)
+    response = LLM.infer(text + "（注意，回答请不要超过50个字）", max_new_tokens=50)
 
     if len(response)==0:
         return 'LLM未回答文字'
