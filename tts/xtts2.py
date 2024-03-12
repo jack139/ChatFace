@@ -13,11 +13,11 @@ model = Xtts.init_from_config(config)
 model.load_checkpoint(config, checkpoint_dir="../lm_model/XTTS-v2/", eval=True)
 model.cuda()
 
-def text2wav(text, language="en", wav_path="infer_outs/tts_output.wav"):
+def text2wav(text, language="en", speaker_wav="data/asr_example.wav", output_wav_path="infer_outs/tts_output.wav"):
     outputs = model.synthesize(
         text,
         config,
-        speaker_wav="data/asr_example.wav",
+        speaker_wav=speaker_wav,
         gpt_cond_len=3,
         language=language,
     )
@@ -25,7 +25,7 @@ def text2wav(text, language="en", wav_path="infer_outs/tts_output.wav"):
     # dict_keys(['wav', 'gpt_latents', 'speaker_embedding'])
     #print(outputs.keys())
 
-    save_wav(wav=outputs['wav'], path=wav_path, sample_rate=config.model_args.output_sample_rate, pipe_out=None)
+    save_wav(wav=outputs['wav'], path=output_wav_path, sample_rate=config.model_args.output_sample_rate, pipe_out=None)
 
 
 if __name__ == '__main__':

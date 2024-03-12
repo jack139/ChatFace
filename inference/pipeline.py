@@ -18,14 +18,18 @@ def infer_from_text(text, video_path='infer_outs/pipeline_demo.mp4'):
     response = LLM.infer(text + "（注意，回答请不要超过50个字）", max_new_tokens=50)
 
     if len(response)==0:
-        return 'LLM未回答文字'
+        return None, 'LLM未回答文字'
 
     print('reply text: ', response)
 
     # text --> [TTS] --> wav    
     # 中文不能超过82个字
     # Warning: The text length exceeds the character limit of 82 for language 'zh'
-    TTS.text2wav(response, language="zh-cn", wav_path="infer_outs/pipeline.wav")
+    TTS.text2wav(response, 
+        language="zh-cn", 
+        speaker_wav="data/test.wav", # 模仿的声音
+        output_wav_path="infer_outs/pipeline.wav"
+    )
 
     #wav --> [GFPP] --> video
     inp = {
@@ -46,10 +50,13 @@ def infer_from_text(text, video_path='infer_outs/pipeline_demo.mp4'):
             }
     GFPP.GeneFace2Infer.example_run(inp)
 
-    return f"video generated in {video_path}."
+    return response, f"video generated in {video_path}."
 
 
 def infer_from_wav(wav_file):
+    if not os.path.exists(wav_file):
+        return None, 'wav文件不存在'
+
     # wav --> [ASR] --> text
     with open(wav_file, 'rb') as f: 
         text = ASR.infer.wav2text(f.read())
@@ -57,7 +64,7 @@ def infer_from_wav(wav_file):
         print('text: ', text)
         return infer_from_text(text)
     else:
-        return '语音未识别到文字'
+        return None, '语音未识别到文字'
 
 
 if __name__ == '__main__':
@@ -71,10 +78,10 @@ if __name__ == '__main__':
         if len(raw_input_text.strip()) == 0:
             break
         if raw_input_text[0]=='@':
-            response = infer_from_wav(raw_input_text[1:])
+            response, mp4_path = infer_from_wav(raw_input_text[1:])
         else:
-            response = infer_from_text(raw_input_text)
+            response, mp4_path = infer_from_text(raw_input_text)
 
-        print("Response: ", response)
+        print(f"Response: {response} ({mp4_path})")
 
     print("Bye!")
