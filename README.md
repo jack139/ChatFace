@@ -9,7 +9,7 @@
 - [x] 语音生成 - coqui/TTS
 - [x] 语音驱动视频生成 - GeneFace++
 - [x] Pipeline
-- [ ] Demo webapp
+- [x] Demo webapp
 
 
 
