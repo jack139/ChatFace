@@ -8,8 +8,8 @@
 - [x] LLM对话 - QWen1.5
 - [x] 语音生成 - coqui/TTS
 - [x] 语音驱动视频生成 - GeneFace++
-- [ ] Pipeline
-- [ ] Demo web
+- [x] Pipeline
+- [ ] Demo webapp
 
 
 
