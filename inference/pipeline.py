@@ -12,13 +12,14 @@ from llm import qw2 as LLM
 from tts import xtts2 as TTS
 from inference import genefacepp_infer as GFPP
 
-
+# 返回：  生成的文本， 生成的视频路径， 输入的文本
+#    出错时： None, 出错信息, None
 def infer_from_text(text, video_path='infer_outs/pipeline_demo.mp4'):
     # text --> [LLM] --> text
     response = LLM.infer(text + "（注意，回答请不要超过50个字）", max_new_tokens=50)
 
     if len(response)==0:
-        return None, 'LLM未回答文字'
+        return None, 'LLM未回答文字', None
 
     print('reply text: ', response)
 
@@ -50,21 +51,21 @@ def infer_from_text(text, video_path='infer_outs/pipeline_demo.mp4'):
             }
     GFPP.GeneFace2Infer.example_run(inp)
 
-    return response, f"video generated in {video_path}."
+    return response, video_path, text
 
 
-def infer_from_wav(wav_file):
+def infer_from_wav(wav_file, video_path='infer_outs/pipeline_demo.mp4'):
     if not os.path.exists(wav_file):
-        return None, 'wav文件不存在'
+        return None, 'wav文件不存在', None
 
     # wav --> [ASR] --> text
     with open(wav_file, 'rb') as f: 
         text = ASR.infer.wav2text(f.read())
     if len(text)>0:
         print('text: ', text)
-        return infer_from_text(text)
+        return infer_from_text(text, video_path=video_path)
     else:
-        return None, '语音未识别到文字'
+        return None, '语音未识别到文字', None
 
 
 if __name__ == '__main__':
@@ -78,9 +79,9 @@ if __name__ == '__main__':
         if len(raw_input_text.strip()) == 0:
             break
         if raw_input_text[0]=='@':
-            response, mp4_path = infer_from_wav(raw_input_text[1:])
+            response, mp4_path, _ = infer_from_wav(raw_input_text[1:])
         else:
-            response, mp4_path = infer_from_text(raw_input_text)
+            response, mp4_path, _ = infer_from_text(raw_input_text)
 
         print(f"Response: {response} ({mp4_path})")
 

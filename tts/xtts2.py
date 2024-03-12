@@ -30,4 +30,5 @@ def text2wav(text, language="en", speaker_wav="data/asr_example.wav", output_wav
 
 if __name__ == '__main__':
     print("infer ...")
-    text2wav("我花了很长时间才形成自己的声音，现在我有了声音，我不会保持沉默。", language="zh-cn")
+    text = "请介绍一下区块链，谢谢！"
+    text2wav(text, language="zh-cn")
