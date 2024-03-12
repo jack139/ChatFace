@@ -16,7 +16,7 @@
 ## 环境安装 （假设已配置过GeneFace, 见GeneFace的TEST.md）
 
 ```bash
-# GeneFace++
+# GeneFace++ (如过已配置过 GeneFace++ 环境, 可忽略)
 
 ## 需要 pytorch 2.0.1 (2.1 会报错)
 sudo pip3.9 install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cu118
@@ -24,6 +24,9 @@ sudo pip3.9 install torch==2.0.1 torchvision==0.15.2 --index-url https://downloa
 ## pytorch3d (https://github.com/facebookresearch/pytorch3d)
 tar xvfz pytorch3d-0.7.6.tar.gz
 cd pytorch3d-0.7.6 && sudo pip3.9 install -e .
+
+## 安装 torch-ngp
+sudo bash docs/install_ext.sh
 
 ## MMCV安装
 sudo pip3.9 install openmim==0.3.9
@@ -35,6 +38,11 @@ sudo pip3.9 install setproctitle
 
 # ASR
 sudo pip3.9 install funasr
+
+# TTS 环境配置 见 tts/TEST.md
+
+# Qwen2
+sudo pip3.9 install transformers==4.37.2
 ```
 
 
