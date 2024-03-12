@@ -13,15 +13,15 @@
 
 
 
-## 环境安装 （假设已配置过GeneFace, 见GeneFace的TEST.md）
+## 环境安装
 
 ```bash
 # GeneFace++ (如过已配置过 GeneFace++ 环境, 可忽略)
 
-## 需要 pytorch 2.0.1 (2.1 会报错)
-sudo pip3.9 install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cu118
+## 需要 pytorch 2.1 + CUDA 11.8
+sudo pip3.9 install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
 
-## pytorch3d (https://github.com/facebookresearch/pytorch3d)
+## pytorch3d (https://github.com/facebookresearch/pytorch3d/archive/refs/tags/v0.7.6.tar.gz)
 tar xvfz pytorch3d-0.7.6.tar.gz
 cd pytorch3d-0.7.6 && sudo pip3.9 install -e .
 
