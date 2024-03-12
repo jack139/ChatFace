@@ -93,9 +93,11 @@ class ParaformerInfer:
             return self.call_nonstreaming(speech)
 
 
+model_path = "../lm_model/paraformer-zh-streaming"
+infer = ParaformerInfer(model_path, device="cuda")
+
+
 if __name__ == '__main__':
-    model_path = "../lm_model/paraformer-zh-streaming"
-    infer = ParaformerInfer(model_path, device="cuda")
 
     test_file = f"{model_path}/example/asr_example.wav"
     #test_file = "data/raw/val_wavs/news2_16k.wav"

@@ -29,7 +29,7 @@ model = torch.compile(model) # requires PyTorch 2.0 (optional)
 print(f"Time elapsed: {(time.time() - start):.3f} sec.")
 
 
-def infer(text):
+def infer(raw_input_text):
     with torch.no_grad():
         messages = [
             {"role": "system", "content": "You are a helpful assistant."},
